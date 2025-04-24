@@ -2,6 +2,8 @@
 
 This gem is only usable for Spree below version 5.0 (eg, Spree 4.x). For Spree 5 you do not need this gem.
 
+[Authentication with Devise in Spree 5 tutorial](https://spreecommerce.org/docs/developer/customization/authentication#using-devise)
+
 # Spree Auth Devise
 
 [![CircleCI](https://circleci.com/gh/spree/spree_auth_devise/tree/main.svg?style=svg)](https://circleci.com/gh/spree/spree_auth_devise/tree/main)
