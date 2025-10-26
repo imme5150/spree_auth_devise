@@ -1,7 +1,7 @@
 require 'spree/core'
 require 'devise'
 require 'devise-encryptable'
-require 'cancan'
+require 'cancancan'
 
 Devise.secret_key = SecureRandom.hex(50)
 

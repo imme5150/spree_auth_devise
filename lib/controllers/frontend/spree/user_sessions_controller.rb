@@ -45,12 +45,25 @@ class Spree::UserSessionsController < Devise::SessionsController
   end
 
   private
-    def accurate_title
-      Spree.t(:login)
-    end
+  def accurate_title
+    Spree.t(:login)
+  end
 
-    def redirect_back_or_default(default)
-      redirect_to(session["spree_user_return_to"] || default)
-      session["spree_user_return_to"] = nil
+  def redirect_back_or_default(default)
+    redirect_to(session["spree_user_return_to"] || default)
+    session["spree_user_return_to"] = nil
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.respond_to?(:has_spree_role?)
+      if resource_or_scope.stockholder?
+        return session["spree_user_return_to"] = '/membership/renew'
+      elsif resource_or_scope.waitlist? # this includes summer members too
+        return session["spree_user_return_to"] = '/account'
+      elsif session["spree_user_return_to"] == '/membership/edit'
+        return session["spree_user_return_to"] = '/waitlist'
+      end
     end
+    stored_location_for(resource_or_scope) || '/'
+  end
 end
